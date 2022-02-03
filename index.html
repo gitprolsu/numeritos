@@ -156,104 +156,13 @@
                 </button>
             </div>
 
-            <p id="keyWord">
-                <!-- keyWord here! -->
-            </p>
+            <p id="keyWord"></p>
 
         </div>
     </div>
 
+    <script src="dictionary.js"></script>
 
-    <script>
-
-        const dictionary = ["cigar", "rebut", "sissy", "humph", "awake", "blush", "focal", "evade", "naval", "serve", "heath", "dwarf", "model", "karma"];
-
-        var box1 = document.getElementById("box1");
-        var box2 = document.getElementById("box2");
-        var box3 = document.getElementById("box3");
-
-        var evaluator = [">", "=", "<"];
-
-        var result = null;
-
-        var startGame = confirm(`Evaluate each expression and discover new words.
-        
-        For example:
-        
-        '9 > 8' is 'TRUE' so you should tap 'TRUE'
-        '5 = 6' is 'FALSE' so you should tap 'FALSE'
-        
-        Watch out! You have 1 second each time to get it right. 
-        If you get it wrong, the letters will disappear, and 
-        you'll start over!
-        
-        Are you ready?!`)
-
-        if (startGame) {
-            runTheGame()
-        }
-
-        // function continueGame() {
-        //     var continueGame = confirm("Play again?");
-        //     if (continueGame) {
-        //         runTheGame();
-        //     }
-        // }
-
-        function runTheGame() {
-
-            var gameTimer = setInterval(iterator, 1000);
-
-            function iterator() {
-                var num1 = Math.floor(Math.random() * 9) + 1;
-                var op = evaluator[Math.floor(Math.random() * 3)];
-                var num2 = Math.floor(Math.random() * 9) + 1;
-
-                if (op === ">") {
-                    result = num1 > num2;
-                } else if (op === "=") {
-                    result = num1 == num2;
-                } else {
-                    result = num1 < num2;
-                }
-
-                box1.value = num1;
-                box2.value = op;
-                box3.value = num2;
-
-            }
-
-            var keyWord = document.getElementById("keyWord");
-            var testingWord = dictionary[Math.floor(Math.random() * dictionary.length)];
-            testingWord = testingWord.split("");
-            var charNum = 0;
-
-            function compareThis(myArg) {
-                if (myArg == result.toString()) {
-                    keyWord.textContent = keyWord.textContent + testingWord[charNum];
-                    charNum++
-                } else if (myArg != result.toString()) {
-                    keyWord.textContent = "";
-                    charNum = 0;
-                }
-
-                if (keyWord.textContent.length === 5) {
-                    clearInterval(gameTimer);
-                }
-            }
-
-            var buttonTrue = document.getElementById("buttonTrue");
-            buttonTrue.addEventListener("click", function () {
-                compareThis("true");
-            });
-
-            var buttonFalse = document.getElementById("buttonFalse");
-            buttonFalse.addEventListener("click", function () {
-                compareThis("false");
-            });
-
-        }
-    </script>
 </body>
 
 </html>
