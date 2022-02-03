@@ -10,18 +10,34 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200&display=swap" rel="stylesheet">
     <style>
-        * {
+        /* *,
+        html,
+        body {
             background-color: whitesmoke;
             font-family: 'Montserrat', sans-serif;
-            color: darkgray;
+            color: rgb(36, 35, 35);
+        } */
+
+        *,
+        html,
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: rgb(32, 32, 32);
+            color: whitesmoke;
+        }
+
+        .container {
+            position: absolute;
+            margin: 50px 192px;
+            width: 1733.4px;
         }
 
         .switch {
-            position: absolute;
-            margin: 5px;
-            border-color: black;
+            position: relative;
+            margin: 10px;
             float: left;
-            width: 100%;
+            /* width: 100%; */
+            margin-left: 500px;
         }
 
         #title {
@@ -29,53 +45,77 @@
             font-size: 50px;
             width: 100%;
             float: left;
-            margin: 5px;
+            margin: 10px;
+            position: relative;
         }
 
-        #gameBoard {
-            margin: 200px 300px;
-            position: absolute;
-            align-self: center;
-        }
-
-        .textSquare {
-            margin: 2.5px;
+        #numbersSection {
             position: relative;
             float: left;
+            width: 100%;
+            margin: 10px;
         }
 
         .letterBox {
-            max-width: 100px;
-            margin-right: 25px;
-            font-size: 100px;
+            position: relative;
+            float: left;
+            width: 100px;
+            margin: 5px;
+            font-size: 75px;
             border-radius: 15px;
             border-width: 5px;
-            /* padding: 2px; */
             font-weight: 900;
             border-color: tomato;
             text-align: center;
         }
 
+        #box1 {
+            margin-left: 39%;
+        }
+
+        #choicesSection {
+            position: relative;
+            float: left;
+            width: 100%;
+            margin: 20px;
+        }
+
+        #buttonTrue,
+        #buttonFalse {
+            margin: 5px;
+            padding: 5px;
+        }
+
+        #buttonTrue {
+            margin-left: 44%;
+        }
+
+        #keyWord {
+            position: relative;
+            float: left;
+            width: 100%;
+            margin: 10px;
+            text-align: center;
+            font-size: 50px;
+            color: tomato;
+            font-weight: bold;
+            letter-spacing: 15px;
+            float: left;
+            position: relative;
+            width: 100%;
+        }
+
         #buttonTrue,
         #buttonFalse {
             float: left;
-            margin: 15px 55px 0 55px;
             font-size: xx-large;
             font-weight: bolder;
             border-radius: 8px;
             background-color: rgb(83, 83, 219);
             color: whitesmoke;
-            width: 100px;
+            width: auto;
             text-align: center;
-        }
-
-        #keyWord {
-            text-align: center;
-            font-size: 25px;
-            color: tomato;
-            font-weight: bold;
-            margin-top: 50px;
-            letter-spacing: 5px;
+            position: relative;
         }
     </style>
 </head>
@@ -83,31 +123,31 @@
 <body>
     <div class="container">
         <div class="switch">
-            <span class="knob">Dark Mode Switch</span>
+            <span class="knob">Dark Mode 'On'</span>
         </div>
 
         <header id="title">
-            prolsu games
+            game x
         </header>
 
         <div id="gameBoard">
 
             <div id="numbersSection">
-                <section class="textSquare">
-                    <input class="letterBox" id="box1" type="text" maxlength="1">
-                    <!--  -->
-                </section>
-                <section class="textSquare">
-                    <input class="letterBox" id="box2" type="text" maxlength="1">
-                    <!--  -->
-                </section>
-                <section class="textSquare">
-                    <input class="letterBox" id="box3" type="text" maxlength="1">
-                    <!--  -->
-                </section>
+
+                <input class="letterBox" id="box1" type="text" maxlength="1">
+                <!--  -->
+
+
+                <input class="letterBox" id="box2" type="text" maxlength="1">
+                <!--  -->
+
+
+                <input class="letterBox" id="box3" type="text" maxlength="1">
+                <!--  -->
+
             </div>
 
-            <div id="choiceSection">
+            <div id="choicesSection">
                 <button id="buttonTrue" name="True">
                     True
                 </button>
@@ -122,7 +162,12 @@
 
         </div>
     </div>
+
+
     <script>
+
+        const dictionary = ["cigar", "rebut", "sissy", "humph", "awake", "blush", "focal", "evade", "naval", "serve", "heath", "dwarf", "model", "karma"];
+
         var box1 = document.getElementById("box1");
         var box2 = document.getElementById("box2");
         var box3 = document.getElementById("box3");
@@ -131,55 +176,83 @@
 
         var result = null;
 
-        function iterator() {
-            var num1 = Math.floor(Math.random() * 9) + 1;
-            var op = evaluator[Math.floor(Math.random() * 3)];
-            var num2 = Math.floor(Math.random() * 9) + 1;
+        var startGame = confirm(`Evaluate each expression and discover new words.
+        
+        For example:
+        
+        '9 > 8' is 'TRUE' so you should tap 'TRUE'
+        '5 = 6' is 'FALSE' so you should tap 'FALSE'
+        
+        Watch out! You have 1 second each time to get it right. 
+        If you get it wrong, the letters will disappear, and 
+        you'll start over!
+        
+        Are you ready?!`)
 
-            if (op === ">") {
-                result = num1 > num2;
-            } else if (op === "=") {
-                result = num1 == num2;
-            } else {
-                result = num1 < num2;
-            }
-
-            box1.value = num1;
-            box2.value = op;
-            box3.value = num2;
-
+        if (startGame) {
+            runTheGame()
         }
 
-        setInterval(iterator, 1000);
+        // function continueGame() {
+        //     var continueGame = confirm("Play again?");
+        //     if (continueGame) {
+        //         runTheGame();
+        //     }
+        // }
 
-        // var score = 0;
+        function runTheGame() {
 
-        var keyWord = document.getElementById("keyWord");
-        var testingWord = "Pedro Alburqueque";
-        testingWord = testingWord.split("");
-        var charNum = 0;
+            var gameTimer = setInterval(iterator, 1000);
 
-        function compareThis(myArg) {
-            if (myArg == result.toString()) {
-                keyWord.textContent = keyWord.textContent + testingWord[charNum];
-                charNum++
-            } else if (myArg != result.toString()) {
-                keyWord.textContent = "";
-                charNum = 0;
+            function iterator() {
+                var num1 = Math.floor(Math.random() * 9) + 1;
+                var op = evaluator[Math.floor(Math.random() * 3)];
+                var num2 = Math.floor(Math.random() * 9) + 1;
+
+                if (op === ">") {
+                    result = num1 > num2;
+                } else if (op === "=") {
+                    result = num1 == num2;
+                } else {
+                    result = num1 < num2;
+                }
+
+                box1.value = num1;
+                box2.value = op;
+                box3.value = num2;
+
             }
+
+            var keyWord = document.getElementById("keyWord");
+            var testingWord = dictionary[Math.floor(Math.random() * dictionary.length)];
+            testingWord = testingWord.split("");
+            var charNum = 0;
+
+            function compareThis(myArg) {
+                if (myArg == result.toString()) {
+                    keyWord.textContent = keyWord.textContent + testingWord[charNum];
+                    charNum++
+                } else if (myArg != result.toString()) {
+                    keyWord.textContent = "";
+                    charNum = 0;
+                }
+
+                if (keyWord.textContent.length === 5) {
+                    clearInterval(gameTimer);
+                }
+            }
+
+            var buttonTrue = document.getElementById("buttonTrue");
+            buttonTrue.addEventListener("click", function () {
+                compareThis("true");
+            });
+
+            var buttonFalse = document.getElementById("buttonFalse");
+            buttonFalse.addEventListener("click", function () {
+                compareThis("false");
+            });
+
         }
-
-        var buttonTrue = document.getElementById("buttonTrue");
-        buttonTrue.addEventListener("click", function () {
-            compareThis("true");
-        });
-
-        var buttonFalse = document.getElementById("buttonFalse");
-        buttonFalse.addEventListener("click", function () {
-            compareThis("false");
-        });
-
-
     </script>
 </body>
 
