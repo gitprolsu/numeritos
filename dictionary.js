@@ -5,7 +5,7 @@ var wordList = {
 function getRandomWord() {
     var randomIndex = Math.floor(Math.random() * wordList.word.length);
     var randomWord = wordList.word[randomIndex];
-    // console.log(randomWord);
+    console.log(randomWord);
     return randomWord;
 }
 
@@ -14,8 +14,6 @@ var box2 = document.getElementById("box2");
 var box3 = document.getElementById("box3");
 
 var evaluator = [">", "=", "<"];
-
-// var result = null;
 
 var startGame = confirm(`Evaluate each expression and discover new words.
         
@@ -34,9 +32,8 @@ if (startGame) {
     runTheGame()
 }
 
-function runTheGame(randomArg) {
-
-    var gameTimer = setInterval(iterator, 1500);
+function runTheGame() {
+    var gameTimer = setInterval(iterator, 1000);
     var result = null;
 
     function iterator() {
@@ -56,10 +53,17 @@ function runTheGame(randomArg) {
         box1.value = num1;
         box2.value = op;
         box3.value = num2;
+   
+        if(keyWord.textContent.length === 5) {
+            clearInterval(gameTimer);
+            document.getElementById("keyWord").textContent = "";
+            // var newMord = getRandomWord();
+            // runTheGame();
+        }
     }
 
     var keyWord = document.getElementById("keyWord");
-    var testingWord = randomArg || getRandomWord();
+    var testingWord = getRandomWord();
     testingWord = testingWord.split("");
     var charNum = 0;
 
@@ -70,17 +74,6 @@ function runTheGame(randomArg) {
         } else if (myArg != result.toString()) {
             keyWord.textContent = "";
             charNum = 0;
-        }
-
-        if (keyWord.textContent.length === testingWord.length) {
-
-            clearInterval(gameTimer);
-
-            document.getElementById("keyWord").textContent = "";
-
-            var continueRandom = getRandomWord();
-            console.log(continueRandom);
-            runTheGame(continueRandom);
         }
     }
 
